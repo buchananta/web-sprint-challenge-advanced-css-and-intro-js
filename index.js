@@ -217,7 +217,7 @@ console.log(artists[2].bio);
 //one of the array methods we were told to not use though.
 
 
-//STRETCH VERSION
+//STRETCH VERSION mostly just a function to get the index
 function find(key, value, arr) {
   const found = arr.find(element => element[key] == value);
   if (!found) return undefined;
@@ -363,7 +363,7 @@ function getHTML(/* Code here */){
 
 
 /* STRETCH 2: Create a function called `randomize` that takes a data array as an argument and returns a the same array in a randomized order. */
-
+//I should probably give credit, this is the knuth shuffle
 function randomize(arr){
   for (let i = arr.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * i);
