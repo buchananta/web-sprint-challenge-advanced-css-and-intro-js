@@ -213,7 +213,21 @@ console.log(artists[2].bio);
 
 /* Task 2: There is a typo in your dataset 😱 The 9th artist, Vincent Van Gogh is currently Vincent Van Dough. Use an array method to fix this issue and console.log() to check your work. */
 
-artists[8].name = "Vincent Van Dough";
+//no idea how to do this with an array method? I can search for it with
+//one of the array methods we were told to not use though.
+
+
+//STRETCH VERSION
+function find(key, value, arr) {
+  const found = arr.find(element => element[key] == value);
+  if (!found) return undefined;
+  return arr.indexOf(found);
+}
+let index = find('name', 'Vincent van Dough', artists);
+artists[index].name = "Vincent Van Gogh";
+
+//MVP VERSION
+artists[8].name = "Vincent van Gogh";
 console.log(artists[8]);
 
 
@@ -235,8 +249,15 @@ console.log(getArtistByIndex(artists, 0));
 
 /* Task 4: Create a function called get20s() that takes data as an argument and returns an array with names of artists who were born in and died in 20th century (1900-2000) example born in 1901 and died in 1959 - included / born in 1889 and died in 1925 not included - should return ["Salvador Dali", "Frida Kahlo"]*/
 
+//STRETCH VERSION
+//function get20stretch(artists){
+//  let result = [];
+//  result.push(artists.filter(x => x.years.split(' - ') x.years[0] < 2000 && x.years[0] > 1899 && x.years[1] < 2000 && x.years[1] > 1899))
+//  return result;
+//}
+
+//MVP VERSION
 function get20s(artists){
-  //no .filter I guess
   let result = [];
   for (let i = 0; i < artists.length; i++) {
     let y = artists[i].years.split(' - '); // y for years [0]=birth [1]=death.
@@ -295,6 +316,11 @@ and returns an array with names of artists who painted more than 100 paintings.
 
 For example lotsOfArt(artists); will return ["Amedeo Modigliani", "Rene Magritte", ..."Albrecht Dürer"]*/
 
+//STRETCH
+function lotsOfArtStretch(artists){
+  return artists.filter(x => x.paintings > 100).map(y => y.name);
+}
+//MVP
 function lotsOfArt(artists){
   const result = [];
   for(let i = 0; i < artists.length; i++) {
@@ -338,11 +364,19 @@ function getHTML(/* Code here */){
 
 /* STRETCH 2: Create a function called `randomize` that takes a data array as an argument and returns a the same array in a randomized order. */
 
-function randomize(/* Code here */){
-
-    /* Code here */
-
+function randomize(arr){
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * i);
+    const temp = arr[i]; //should be a way to do a swap like this
+    arr[i] = arr[j];    //in one line, but I'm against time here
+    arr[j] = temp;
   }
-
+  return arr;
+}
+console.log(randomize([1,2,3,4,5]));
 
  /* STRETCH 3: Use advanced array methods (.map, .reduce, .filer) to refactor your MVP code (create an array of all artists born in the 1900s with .filter, for example) */
+
+console.log(index);
+console.log(lotsOfArtStretch(artists));
+
