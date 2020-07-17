@@ -208,10 +208,27 @@ const artists = [
 (1) Name of the first artist (0th index) in the array
 (2) Bio of the third artist (2nd index) in the array */
 
-
+console.log(artists[0].name);
+console.log(artists[2].bio);
 
 /* Task 2: There is a typo in your dataset 😱 The 9th artist, Vincent Van Gogh is currently Vincent Van Dough. Use an array method to fix this issue and console.log() to check your work. */
 
+//no idea how to do this with an array method? I can search for it with
+//one of the array methods we were told to not use though.
+
+
+//STRETCH VERSION mostly just a function to get the index
+function find(key, value, arr) {
+  const found = arr.find(element => element[key] == value);
+  if (!found) return undefined;
+  return arr.indexOf(found);
+}
+let index = find('name', 'Vincent van Dough', artists);
+artists[index].name = "Vincent Van Gogh";
+
+//MVP VERSION
+artists[8].name = "Vincent van Gogh";
+console.log(artists[8]);
 
 
 /* Task 3: Create a function called `getArtistByIndex` that takes two arguments:
@@ -223,20 +240,33 @@ const artists = [
  * it will return `The artist at index 0 is Amedeo Modigliani`.
 */
 function getArtistByIndex(array, index) {
-    /* code here */
+  return `The artist at index ${index} is ${array[index].name}.`
   }
   
+console.log(getArtistByIndex(artists, 0));
   /**
 
 
 /* Task 4: Create a function called get20s() that takes data as an argument and returns an array with names of artists who were born in and died in 20th century (1900-2000) example born in 1901 and died in 1959 - included / born in 1889 and died in 1925 not included - should return ["Salvador Dali", "Frida Kahlo"]*/
 
-function get20s(/* Code here */){
+//STRETCH VERSION
+//function get20stretch(artists){
+//  let result = [];
+//  result.push(artists.filter(x => x.years.split(' - ') x.years[0] < 2000 && x.years[0] > 1899 && x.years[1] < 2000 && x.years[1] > 1899))
+//  return result;
+//}
 
-  /* Code here */
-
+//MVP VERSION
+function get20s(artists){
+  let result = [];
+  for (let i = 0; i < artists.length; i++) {
+    let y = artists[i].years.split(' - '); // y for years [0]=birth [1]=death.
+    if (y[0] < 2000 && y[0] > 1899 && y[1] < 2000 && y[1] > 1899)
+      result.push(artists[i].name);
+  }
+  return result;
 }
-
+console.log(get20s(artists));
 
 /* Task 5: Create a function called `removeArtist` that takes two arguments:
  *     (1) artists array
@@ -248,11 +278,13 @@ function get20s(/* Code here */){
  * 
  * Note that sucessfully invoking this function multiple times without refreshing your browser will continuously remove artists from the array until there are none left. If you refresh your browser, the data will reset.  
 */
-function removeArtist(/*code here*/) {
-    /* code here */
+function removeArtist(artists, index) {
+  artists.splice(index, 1);
+  console.log(artists.length);
+  return artists;
   }
   
- 
+ removeArtist(artists, 0);
 
 /**
 /* Task 6: Create a function called `addArtist` that can accept an object of information and add it to the artists array. Then, add a 21st artist to the array (you) with custom information!👩‍🎨👨‍🎨
@@ -267,11 +299,14 @@ bio: Add 1-2 sentences (or use lorem ipsum)
 
 At the end, this function should return the new array with information added"*/
 
-function addArtist(/* Code here */){
-
-    /* Code here */
-
+function addArtist(artists, newArtist){
+  artists.push(newArtist);
+  return artists;
   }
+
+const me = {id: 20, name: 'Trevor Buchanan', years: '1986 - current day', genre: 'Web Design', nationality: 'American', bio: 'We choose to go to the moon in this decade and do the other things, not because they are easy, but because they are hard, because that goal will serve to organize and measure the best of our energies and skills, because that challenge is one that we are willing to accept, one we are unwilling to postpone, and one which we intend to win.'}
+
+console.log(addArtist(artists, me));
 
 /* Task 7: Create a function called lotsOfArt() that takes one argument: 
 
@@ -281,12 +316,20 @@ and returns an array with names of artists who painted more than 100 paintings.
 
 For example lotsOfArt(artists); will return ["Amedeo Modigliani", "Rene Magritte", ..."Albrecht Dürer"]*/
 
-function lotsOfArt(/* Code here */){
-
-  /* Code here */
-
+//STRETCH
+function lotsOfArtStretch(artists){
+  return artists.filter(x => x.paintings > 100).map(y => y.name);
+}
+//MVP
+function lotsOfArt(artists){
+  const result = [];
+  for(let i = 0; i < artists.length; i++) {
+    if (artists[i].paintings > 100) result.push(artists[i].name)
+  }
+  return result;
 }
 
+console.log(lotsOfArt(artists));
 
 
 // 🎨🎨 STRETCH 🎨🎨//
@@ -320,12 +363,20 @@ function getHTML(/* Code here */){
 
 
 /* STRETCH 2: Create a function called `randomize` that takes a data array as an argument and returns a the same array in a randomized order. */
-
-function randomize(/* Code here */){
-
-    /* Code here */
-
+//I should probably give credit, this is the knuth shuffle
+function randomize(arr){
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * i);
+    const temp = arr[i]; //should be a way to do a swap like this
+    arr[i] = arr[j];    //in one line, but I'm against time here
+    arr[j] = temp;
   }
-
+  return arr;
+}
+console.log(randomize([1,2,3,4,5]));
 
  /* STRETCH 3: Use advanced array methods (.map, .reduce, .filer) to refactor your MVP code (create an array of all artists born in the 1900s with .filter, for example) */
+
+console.log(index);
+console.log(lotsOfArtStretch(artists));
+
